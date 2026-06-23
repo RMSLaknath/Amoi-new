@@ -2,6 +2,7 @@
 import { useState, useEffect, Suspense } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import Link from 'next/link'
+import Image from 'next/image'
 import { toast } from 'react-toastify'
 import { useCart } from '@/context/CartContext'
 import Input from '@/components/ui/Input'
@@ -229,7 +230,7 @@ function AccountContent() {
     <div className="min-h-[80vh] grid grid-cols-1 lg:grid-cols-2">
       {/* Brand panel */}
       <div className="hidden lg:flex flex-col justify-between bg-cta px-14 py-20">
-        <p className="font-playfair italic text-3xl text-white">Amoi</p>
+        <Image src="/logo.png" alt="Amoi" width={52} height={52} className="object-contain" />
         <div>
           <p className="font-playfair italic text-5xl text-white leading-tight mb-6">
             Style that<br />tells your story.

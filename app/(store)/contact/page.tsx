@@ -25,15 +25,34 @@ export default function ContactPage() {
           <div className="space-y-5 text-sm text-text-secondary">
             <div>
               <p className="text-xs tracking-widest uppercase text-text-muted mb-1">Email</p>
-              <p>hello@amoifashion.lk</p>
+              <a href="mailto:amoi.collection2021@gmail.com" className="hover:text-text-primary transition-colors">
+                amoi.collection2021@gmail.com
+              </a>
+            </div>
+            <div>
+              <p className="text-xs tracking-widest uppercase text-text-muted mb-1">Phone</p>
+              <a href="tel:+94716174364" className="hover:text-text-primary transition-colors">
+                071 617 4364
+              </a>
+            </div>
+            <div>
+              <p className="text-xs tracking-widest uppercase text-text-muted mb-1">WhatsApp</p>
+              <a
+                href="https://wa.me/94716174364"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hover:text-text-primary transition-colors"
+              >
+                +94 71 617 4364
+              </a>
             </div>
             <div>
               <p className="text-xs tracking-widest uppercase text-text-muted mb-1">Hours</p>
-              <p>Mon – Fri: 9:00 AM – 6:00 PM (IST)</p>
+              <p>Mon – Sat: 9:00 AM – 7:00 PM</p>
             </div>
             <div>
               <p className="text-xs tracking-widest uppercase text-text-muted mb-1">Location</p>
-              <p>Colombo, Sri Lanka</p>
+              <p>Sri Lanka</p>
             </div>
           </div>
         </div>

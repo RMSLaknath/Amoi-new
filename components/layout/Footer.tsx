@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import Image from 'next/image'
 
 export default function Footer() {
   return (
@@ -7,25 +8,33 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="md:col-span-1">
-            <p className="font-playfair italic text-2xl mb-4">Amoi</p>
+            <div className="mb-4">
+              <Image src="/logo.png" alt="Amoi" width={52} height={52} className="object-contain" />
+            </div>
             <p className="text-xs text-white/60 leading-relaxed">
-              Handcrafted women's fashion for the modern Sri Lankan woman. Elegance in every stitch.
+              Handcrafted women&apos;s fashion for the modern Sri Lankan woman. Elegance in every stitch.
             </p>
           </div>
 
-          {/* Company */}
+          {/* Contact */}
           <div>
-            <h3 className="text-xs tracking-[0.2em] uppercase mb-5 text-white/60">Company</h3>
-            <ul className="space-y-3">
-              {[{ label: 'About', href: '/about' }, { label: 'Contact', href: '/contact' }].map(
-                (l) => (
-                  <li key={l.href}>
-                    <Link href={l.href} className="text-sm hover:text-white/60 transition-colors">
-                      {l.label}
-                    </Link>
-                  </li>
-                )
-              )}
+            <h3 className="text-xs tracking-[0.2em] uppercase mb-5 text-white/60">Contact</h3>
+            <ul className="space-y-3 text-sm">
+              <li>
+                <a href="mailto:amoi.collection2021@gmail.com" className="hover:text-white/60 transition-colors break-all">
+                  amoi.collection2021@gmail.com
+                </a>
+              </li>
+              <li>
+                <a href="tel:+94716174364" className="hover:text-white/60 transition-colors">
+                  071 617 4364
+                </a>
+              </li>
+              <li>
+                <a href="https://wa.me/94716174364" target="_blank" rel="noopener noreferrer" className="hover:text-white/60 transition-colors">
+                  WhatsApp: +94 71 617 4364
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -34,6 +43,8 @@ export default function Footer() {
             <h3 className="text-xs tracking-[0.2em] uppercase mb-5 text-white/60">Customer</h3>
             <ul className="space-y-3">
               {[
+                { label: 'About', href: '/about' },
+                { label: 'Contact', href: '/contact' },
                 { label: 'My Orders', href: '/orders' },
                 { label: 'My Account', href: '/account' },
               ].map((l) => (

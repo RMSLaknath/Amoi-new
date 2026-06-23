@@ -53,7 +53,7 @@ export default function Hero() {
   const slide = SLIDES[current]
 
   return (
-    <section id="hero" className="relative h-[calc(100vh-41px)] w-full overflow-hidden">
+    <section id="hero" className="relative h-[calc(100vh-41px)] w-full overflow-hidden bg-neutral-900">
       {/* Crossfading background images */}
       {SLIDES.map((s, i) => (
         <div

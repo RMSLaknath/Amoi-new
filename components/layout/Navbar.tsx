@@ -30,17 +30,18 @@ export default function Navbar() {
   }, [isHome])
 
   const transparent = isHome && !scrolled
-  const navBg = transparent ? 'bg-transparent' : 'bg-white border-b border-border'
+  const navBg = transparent
+    ? 'bg-black'
+    : 'bg-white border-b border-border'
   const textColor = transparent ? 'text-white' : 'text-text-primary'
-  const logoColor = transparent ? 'text-white' : 'text-text-primary'
 
   return (
     <>
       <nav className={`sticky top-0 z-50 transition-all duration-300 ${navBg}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
           {/* Logo */}
-          <Link href="/" className={`font-playfair italic text-2xl tracking-wide ${logoColor}`}>
-            Amoi
+          <Link href="/" className={`text-xl font-bold tracking-[0.25em] shrink-0 ${textColor}`}>
+            AMOI
           </Link>
 
           {/* Desktop nav links */}
@@ -117,7 +118,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="fixed inset-0 z-50 bg-white flex flex-col">
           <div className="flex items-center justify-between px-4 h-16 border-b border-border">
-            <span className="font-playfair italic text-2xl">Amoi</span>
+            <span className="text-xl font-bold tracking-[0.25em] text-text-primary">AMOI</span>
             <button onClick={() => setMenuOpen(false)} aria-label="Close menu">
               <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 <line x1="18" y1="6" x2="6" y2="18" />
