@@ -232,13 +232,13 @@ function AccountContent() {
         <p className="font-playfair italic text-3xl text-white">Amoi</p>
         <div>
           <p className="font-playfair italic text-5xl text-white leading-tight mb-6">
-            Fashion made<br />for you.
+            Style that<br />tells your story.
           </p>
           <p className="text-white/50 text-sm tracking-wider leading-relaxed max-w-xs">
-            Discover handcrafted Sri Lankan couture — designed for every occasion, delivered to your door.
+            Handcrafted women's couture from Sri Lanka — designed for every chapter of your life.
           </p>
         </div>
-        <p className="text-white/30 text-xs tracking-widest uppercase">Sri Lankan Couture</p>
+        <p className="text-white/30 text-xs tracking-widest uppercase">Women's Couture · Sri Lanka</p>
       </div>
 
       {/* Form panel */}

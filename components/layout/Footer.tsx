@@ -9,7 +9,7 @@ export default function Footer() {
           <div className="md:col-span-1">
             <p className="font-playfair italic text-2xl mb-4">Amoi</p>
             <p className="text-xs text-white/60 leading-relaxed">
-              Premium fashion crafted for the modern wardrobe. Proudly Sri Lankan.
+              Handcrafted women's fashion for the modern Sri Lankan woman. Elegance in every stitch.
             </p>
           </div>
 
@@ -51,10 +51,9 @@ export default function Footer() {
             <h3 className="text-xs tracking-[0.2em] uppercase mb-5 text-white/60">Shop</h3>
             <ul className="space-y-3">
               {[
-                { label: 'Women', href: '/collection?category=Women' },
-                { label: 'Men', href: '/collection?category=Men' },
-                { label: 'Kids', href: '/collection?category=Kids' },
                 { label: 'New Arrivals', href: '/collection?category=New' },
+                { label: 'Women', href: '/collection?category=Women' },
+                { label: 'All Collections', href: '/collection' },
               ].map((l) => (
                 <li key={l.href}>
                   <Link href={l.href} className="text-sm hover:text-white/60 transition-colors">

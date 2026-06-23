@@ -17,9 +17,9 @@ export default function Newsletter() {
   return (
     <section className="py-20 bg-surface">
       <div className="max-w-xl mx-auto px-4 text-center">
-        <h2 className="font-playfair italic text-3xl mb-3">Stay in the Loop</h2>
+        <h2 className="font-playfair italic text-3xl mb-3">The Amoi Edit</h2>
         <p className="text-sm text-text-secondary mb-8">
-          Subscribe and get 10% off your first order.
+          New arrivals, style guides, and exclusive offers — straight to your inbox. Get 10% off your first order.
         </p>
         {submitted ? (
           <p className="text-sm text-text-primary tracking-wider">Thank you for subscribing!</p>

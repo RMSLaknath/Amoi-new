@@ -2,16 +2,17 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const CATEGORIES = [
-  { label: 'Women', href: '/collection?category=Women', image: '/categories/women.jpg', bg: 'bg-stone-200' },
-  { label: 'Men', href: '/collection?category=Men', image: '/categories/men.jpg', bg: 'bg-zinc-300' },
-  { label: 'Kids', href: '/collection?category=Kids', image: '/categories/kids.jpg', bg: 'bg-neutral-200' },
-  { label: 'New Arrivals', href: '/collection?category=New', image: '/categories/new.jpg', bg: 'bg-slate-200' },
+  { label: 'New Arrivals', href: '/collection?category=New', image: '/categories/new.jpg', bg: 'bg-rose-50' },
+  { label: 'Dresses', href: '/collection?subcategory=Dresses', image: '/categories/women.jpg', bg: 'bg-stone-100' },
+  { label: 'Collections', href: '/collection?category=Women', image: '/categories/women.jpg', bg: 'bg-neutral-100' },
+  { label: 'All Styles', href: '/collection', image: '/categories/new.jpg', bg: 'bg-pink-50' },
 ]
 
 export default function CategoryGrid() {
   return (
     <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 className="font-playfair italic text-3xl text-center mb-12">Shop by Category</h2>
+      <h2 className="font-playfair italic text-3xl text-center mb-3">Shop the Edit</h2>
+      <p className="text-sm text-text-muted text-center mb-12 tracking-wider">Curated styles for every occasion</p>
       <div className="grid grid-cols-2 gap-4 md:gap-6">
         {CATEGORIES.map((cat) => (
           <Link key={cat.href} href={cat.href} className="group relative overflow-hidden aspect-[4/3]">

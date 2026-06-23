@@ -16,15 +16,15 @@ export default function Hero() {
 
       {/* Content */}
       <div className="relative z-10 px-8 sm:px-12 pb-16 text-white">
-        <p className="text-xs tracking-[0.4em] uppercase mb-4 opacity-80">New Collection</p>
+        <p className="text-xs tracking-[0.4em] uppercase mb-4 opacity-80">New Season Arrivals</p>
         <h1 className="font-playfair italic text-5xl sm:text-6xl leading-tight mb-8">
-          Effortless Elegance
+          Dressed for<br />Every Moment
         </h1>
         <Link
           href="/collection"
           className="inline-block bg-white text-cta px-10 py-3 text-xs tracking-[0.2em] uppercase hover:bg-cta hover:text-white border border-white transition-colors"
         >
-          Shop Now
+          Explore the Collection
         </Link>
       </div>
     </section>

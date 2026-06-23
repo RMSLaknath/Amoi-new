@@ -6,6 +6,12 @@ import SortDropdown from './SortDropdown'
 import ProductGrid from '@/components/product/ProductGrid'
 import type { Product, SortOption } from '@/types'
 
+interface Category {
+  _id: string
+  name: string
+  subcategories: string[]
+}
+
 interface Props {
   allProducts: Product[]
 }
@@ -18,6 +24,14 @@ export default function CollectionClient({ allProducts }: Props) {
   )
   const [sizes, setSizes] = useState<string[]>([])
   const [sort, setSort] = useState<SortOption>('relevant')
+  const [adminCategories, setAdminCategories] = useState<Category[]>([])
+
+  useEffect(() => {
+    fetch('/api/admin/categories')
+      .then((r) => r.json())
+      .then((d) => { if (d.success) setAdminCategories(d.categories) })
+      .catch(() => {})
+  }, [])
 
   useEffect(() => {
     const cat = searchParams.get('category') ?? ''
@@ -27,6 +41,22 @@ export default function CollectionClient({ allProducts }: Props) {
     setSubcategories(sub ? [sub] : [])
     if (best === 'true') setSubcategories([])
   }, [searchParams])
+
+  const categoryOptions = useMemo(() => adminCategories.map((c) => c.name), [adminCategories])
+
+  const subcategoryOptions = useMemo(() => {
+    if (category) {
+      const matched = adminCategories.find((c) => c.name === category)
+      return matched?.subcategories ?? []
+    }
+    const all = adminCategories.flatMap((c) => c.subcategories)
+    return [...new Set(all)]
+  }, [adminCategories, category])
+
+  const handleCategory = (v: string) => {
+    setCategory(v)
+    setSubcategories([])
+  }
 
   const handleSubcategory = (v: string, checked: boolean) =>
     setSubcategories((prev) => checked ? [...prev, v] : prev.filter((s) => s !== v))
@@ -61,7 +91,9 @@ export default function CollectionClient({ allProducts }: Props) {
             category={category}
             subcategories={subcategories}
             sizes={sizes}
-            onCategory={setCategory}
+            categoryOptions={categoryOptions}
+            subcategoryOptions={subcategoryOptions}
+            onCategory={handleCategory}
             onSubcategory={handleSubcategory}
             onSize={handleSize}
           />

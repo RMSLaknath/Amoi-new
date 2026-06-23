@@ -6,10 +6,10 @@ import { useCart } from '@/context/CartContext'
 import CurrencySwitcher from '@/components/ui/CurrencySwitcher'
 
 const NAV_LINKS = [
+  { label: 'New Arrivals', href: '/collection?category=New' },
   { label: 'Women', href: '/collection?category=Women' },
-  { label: 'Men', href: '/collection?category=Men' },
-  { label: 'Kids', href: '/collection?category=Kids' },
-  { label: 'New', href: '/collection?category=New' },
+  { label: 'Collections', href: '/collection' },
+  { label: 'About', href: '/about' },
 ]
 
 export default function Navbar() {
