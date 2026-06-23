@@ -9,8 +9,8 @@ const CATEGORIES = [
     bg: 'bg-stone-100',
   },
   {
-    label: 'Dresses',
-    href: '/collection?subcategory=Dresses',
+    label: 'Pants',
+    href: '/collection?subcategory=Linen Pants',
     image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1800&q=85',
     bg: 'bg-neutral-100',
   },
