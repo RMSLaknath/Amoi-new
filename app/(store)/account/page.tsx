@@ -147,7 +147,8 @@ function AccountContent() {
 
   // ─── Logged-in dashboard ───────────────────────────────────────────────────
   if (authedUser !== null) {
-    const initials = authedUser.name
+    const displayName = authedUser.name?.trim() || authedUser.email?.split('@')[0]?.trim() || 'Guest'
+    const initials = displayName
       .split(' ')
       .map((w: string) => w[0] ?? '')
       .join('')
@@ -162,7 +163,7 @@ function AccountContent() {
             {initials}
           </div>
           <div>
-            <p className="font-playfair italic text-2xl text-text-primary">{authedUser.name}</p>
+            <p className="font-playfair italic text-2xl text-text-primary">{displayName}</p>
             <p className="text-sm text-text-muted mt-0.5">{authedUser.email}</p>
           </div>
         </div>

@@ -11,9 +11,18 @@ export async function GET(req: NextRequest) {
     if (!doc.exists) return NextResponse.json({ success: false }, { status: 404 })
 
     const data = doc.data()!
+    const email = (data.email || data.emailAddress || '') as string
+    let name = (data.name || data.displayName || '') as string
+
+    // Backfill missing name so it won't be blank on next load
+    if (!name && email) {
+      name = email.split('@')[0]
+      await db.collection('users').doc(auth.id).update({ name })
+    }
+
     return NextResponse.json({
       success: true,
-      user: { name: data.name as string, email: data.email as string },
+      user: { name, email },
     })
   } catch {
     return NextResponse.json({ success: false, message: 'Server error' }, { status: 500 })
