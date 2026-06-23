@@ -31,7 +31,7 @@ const CATEGORIES = [
 export default function CategoryGrid() {
   return (
     <section className="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 className="font-playfair italic text-3xl text-center mb-3">Dive The Collections</h2>
+      <h2 className="font-playfair italic text-3xl text-center mb-3">Dive Into The Collections</h2>
       <p className="text-sm text-text-muted text-center mb-12 tracking-wider">Curated styles for every occasion</p>
       <div className="grid grid-cols-2 gap-4 md:gap-6">
         {CATEGORIES.map((cat) => (
