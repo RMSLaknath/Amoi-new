@@ -51,7 +51,7 @@ export default function Footer() {
             <h3 className="text-xs tracking-[0.2em] uppercase mb-5 text-white/60">Shop</h3>
             <ul className="space-y-3">
               {[
-                { label: 'New Arrivals', href: '/collection?category=New' },
+                { label: 'New Arrivals', href: '/collection?sort=newest' },
                 { label: 'Women', href: '/collection?category=Women' },
                 { label: 'All Collections', href: '/collection' },
               ].map((l) => (

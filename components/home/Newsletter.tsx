@@ -11,7 +11,7 @@ export default function Newsletter() {
     e.preventDefault()
     if (!email) return
     setSubmitted(true)
-    toast.success('You\'re subscribed! Check your inbox for 10% off.')
+    toast.success('You\'re subscribed! Welcome to the Amoi community.')
   }
 
   return (
@@ -19,7 +19,7 @@ export default function Newsletter() {
       <div className="max-w-xl mx-auto px-4 text-center">
         <h2 className="font-playfair italic text-3xl mb-3">The Amoi Edit</h2>
         <p className="text-sm text-text-secondary mb-8">
-          New arrivals, style guides, and exclusive offers — straight to your inbox. Get 10% off your first order.
+          Be the first to discover new collections, behind-the-scenes stories, and exclusive member-only offers.
         </p>
         {submitted ? (
           <p className="text-sm text-text-primary tracking-wider">Thank you for subscribing!</p>

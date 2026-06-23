@@ -2,10 +2,30 @@ import Link from 'next/link'
 import Image from 'next/image'
 
 const CATEGORIES = [
-  { label: 'New Arrivals', href: '/collection?category=New', image: '/categories/new.jpg', bg: 'bg-rose-50' },
-  { label: 'Dresses', href: '/collection?subcategory=Dresses', image: '/categories/women.jpg', bg: 'bg-stone-100' },
-  { label: 'Collections', href: '/collection?category=Women', image: '/categories/women.jpg', bg: 'bg-neutral-100' },
-  { label: 'All Styles', href: '/collection', image: '/categories/new.jpg', bg: 'bg-pink-50' },
+  {
+    label: 'New Arrivals',
+    href: '/collection?sort=newest',
+    image: 'https://images.unsplash.com/photo-1483985988355-763728e1935b?auto=format&fit=crop&w=1800&q=85',
+    bg: 'bg-stone-100',
+  },
+  {
+    label: 'Dresses',
+    href: '/collection?subcategory=Dresses',
+    image: 'https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=1800&q=85',
+    bg: 'bg-neutral-100',
+  },
+  {
+    label: 'Collections',
+    href: '/collection?category=Women',
+    image: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?auto=format&fit=crop&w=1800&q=85',
+    bg: 'bg-stone-200',
+  },
+  {
+    label: 'All Styles',
+    href: '/collection',
+    image: 'https://images.unsplash.com/photo-1581044777550-4cfa60707c03?auto=format&fit=crop&w=1800&q=85',
+    bg: 'bg-zinc-100',
+  },
 ]
 
 export default function CategoryGrid() {

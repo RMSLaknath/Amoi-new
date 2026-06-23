@@ -4,9 +4,10 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useCart } from '@/context/CartContext'
 import CurrencySwitcher from '@/components/ui/CurrencySwitcher'
+import SearchOverlay from '@/components/layout/SearchOverlay'
 
 const NAV_LINKS = [
-  { label: 'New Arrivals', href: '/collection?category=New' },
+  { label: 'New Arrivals', href: '/collection?sort=newest' },
   { label: 'Women', href: '/collection?category=Women' },
   { label: 'Collections', href: '/collection' },
   { label: 'About', href: '/about' },
@@ -14,6 +15,7 @@ const NAV_LINKS = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const [searchOpen, setSearchOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { getCartCount } = useCart()
   const pathname = usePathname()
@@ -61,6 +63,18 @@ export default function Navbar() {
               <CurrencySwitcher />
             </div>
 
+            {/* Search */}
+            <button
+              onClick={() => setSearchOpen(true)}
+              aria-label="Search"
+              className="hover:opacity-60 transition-opacity"
+            >
+              <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
+                <circle cx="11" cy="11" r="8" />
+                <path d="M21 21l-4.35-4.35" />
+              </svg>
+            </button>
+
             <Link href="/account" aria-label="Account" className="hover:opacity-60 transition-opacity">
               <svg width="20" height="20" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24">
                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
@@ -96,6 +110,8 @@ export default function Navbar() {
           </div>
         </div>
       </nav>
+
+      <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
 
       {/* Mobile slide-in menu */}
       {menuOpen && (

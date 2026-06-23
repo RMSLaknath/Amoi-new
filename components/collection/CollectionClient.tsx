@@ -23,7 +23,9 @@ export default function CollectionClient({ allProducts }: Props) {
     searchParams.get('subcategory') ? [searchParams.get('subcategory')!] : []
   )
   const [sizes, setSizes] = useState<string[]>([])
-  const [sort, setSort] = useState<SortOption>('relevant')
+  const [sort, setSort] = useState<SortOption>(
+    (searchParams.get('sort') as SortOption) ?? 'relevant'
+  )
   const [adminCategories, setAdminCategories] = useState<Category[]>([])
 
   useEffect(() => {
@@ -37,9 +39,11 @@ export default function CollectionClient({ allProducts }: Props) {
     const cat = searchParams.get('category') ?? ''
     const sub = searchParams.get('subcategory')
     const best = searchParams.get('bestseller')
+    const s = searchParams.get('sort') as SortOption | null
     setCategory(cat)
     setSubcategories(sub ? [sub] : [])
     if (best === 'true') setSubcategories([])
+    if (s) setSort(s)
   }, [searchParams])
 
   const categoryOptions = useMemo(() => adminCategories.map((c) => c.name), [adminCategories])
@@ -82,8 +86,16 @@ export default function CollectionClient({ allProducts }: Props) {
     }
   }, [allProducts, category, subcategories, sizes, sort, searchParams])
 
+  const pageTitle = useMemo(() => {
+    if (searchParams.get('sort') === 'newest') return 'New Arrivals'
+    if (searchParams.get('bestseller') === 'true') return 'Bestsellers'
+    if (category) return category
+    return 'All Collections'
+  }, [searchParams, category])
+
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <h1 className="font-playfair italic text-3xl mb-10">{pageTitle}</h1>
       <div className="flex gap-12">
         {/* Sidebar */}
         <div className="hidden md:block">
