@@ -17,7 +17,7 @@ export default function Newsletter() {
   return (
     <section className="py-20 bg-surface">
       <div className="max-w-xl mx-auto px-4 text-center">
-        <h2 className="font-playfair italic text-3xl mb-3">The Amoi Edit</h2>
+        <h2 className="font-playfair italic text-3xl mb-3">Explore More With Us</h2>
         <p className="text-sm text-text-secondary mb-8">
           Be the first to discover new collections, behind-the-scenes stories, and exclusive member-only offers.
         </p>
