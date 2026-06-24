@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 
 interface Category {
@@ -14,15 +15,17 @@ export default function AdminCategoriesPage() {
   const [newCategory, setNewCategory] = useState('')
   const [newSub, setNewSub] = useState<Record<string, string>>({})
   const [saving, setSaving] = useState(false)
+  const router = useRouter()
 
   const fetchCategories = async () => {
     const res = await fetch('/api/admin/categories')
+    if (res.status === 401) { router.push('/admin/login'); return }
     const data = await res.json()
     if (data.success) setCategories(data.categories as Category[])
     setLoading(false)
   }
 
-  useEffect(() => { fetchCategories() }, [])
+  useEffect(() => { fetchCategories() }, [router])
 
   const call = async (body: object) => {
     setSaving(true)
@@ -32,6 +35,7 @@ export default function AdminCategoriesPage() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(body),
       })
+      if (res.status === 401) { router.push('/admin/login'); return }
       const data = await res.json()
       if (data.success) {
         await fetchCategories()

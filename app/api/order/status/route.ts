@@ -10,7 +10,17 @@ export async function POST(req: NextRequest) {
     }
 
     const { orderId, status } = await req.json()
-    await db.collection('orders').doc(orderId).update({ status })
+    const updateData: Record<string, unknown> = { status }
+
+    // Auto-mark COD orders as paid when delivered
+    if (status === 'Delivered') {
+      const orderDoc = await db.collection('orders').doc(orderId).get()
+      if (orderDoc.exists && orderDoc.data()?.paymentMethod === 'COD') {
+        updateData.payment = true
+      }
+    }
+
+    await db.collection('orders').doc(orderId).update(updateData)
 
     return NextResponse.json({ success: true, message: 'Status updated' })
   } catch {

@@ -1,5 +1,6 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import type { Order } from '@/types'
 
@@ -14,11 +15,13 @@ const STATUSES = [
 export default function AdminOrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   useEffect(() => {
     const fetchOrders = async () => {
       try {
         const res = await fetch('/api/order/list', { method: 'POST' })
+        if (res.status === 401) { router.push('/admin/login'); return }
         const data = await res.json()
         if (data.success) setOrders(data.orders as Order[])
       } finally {
@@ -26,7 +29,7 @@ export default function AdminOrdersPage() {
       }
     }
     fetchOrders()
-  }, [])
+  }, [router])
 
   const handleStatusChange = async (orderId: string, status: string) => {
     const res = await fetch('/api/order/status', {
@@ -34,12 +37,36 @@ export default function AdminOrdersPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ orderId, status }),
     })
+    if (res.status === 401) { router.push('/admin/login'); return }
     const data = await res.json()
     if (data.success) {
       setOrders((prev) =>
-        prev.map((o) => (o._id === orderId ? { ...o, status } : o)),
+        prev.map((o) => {
+          if (o._id !== orderId) return o
+          const payment = status === 'Delivered' && o.paymentMethod === 'COD' ? true : o.payment
+          return { ...o, status, payment }
+        }),
       )
       toast.success('Status updated')
+    } else {
+      toast.error(data.message as string)
+    }
+  }
+
+  const handleTogglePayment = async (orderId: string, current: boolean) => {
+    const payment = !current
+    const res = await fetch('/api/order/payment', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ orderId, payment }),
+    })
+    if (res.status === 401) { router.push('/admin/login'); return }
+    const data = await res.json()
+    if (data.success) {
+      setOrders((prev) =>
+        prev.map((o) => (o._id === orderId ? { ...o, payment } : o)),
+      )
+      toast.success(payment ? 'Marked as paid' : 'Marked as pending')
     } else {
       toast.error(data.message as string)
     }
@@ -105,14 +132,16 @@ export default function AdminOrdersPage() {
                     <p className="text-xs text-text-muted">{order.paymentMethod}</p>
                   </td>
                   <td className="px-4 py-4 hidden lg:table-cell">
-                    <span
-                      className={`inline-flex items-center gap-1.5 text-xs ${
+                    <button
+                      onClick={() => handleTogglePayment(order._id, order.payment)}
+                      title="Click to toggle payment status"
+                      className={`inline-flex items-center gap-1.5 text-xs transition-opacity hover:opacity-70 ${
                         order.payment ? 'text-green-600' : 'text-text-muted'
                       }`}
                     >
                       <span className={`w-1.5 h-1.5 inline-block ${order.payment ? 'bg-green-500' : 'bg-text-muted'}`} />
                       {order.payment ? 'Paid' : 'Pending'}
-                    </span>
+                    </button>
                   </td>
                   <td className="px-4 py-4 text-text-muted hidden lg:table-cell">
                     {new Date(order.date).toLocaleDateString('en-GB')}

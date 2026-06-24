@@ -1,6 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useCurrency } from '@/context/CurrencyContext'
 import type { Order } from '@/types'
 
@@ -108,13 +109,17 @@ export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
   const { formatPrice } = useCurrency()
+  const router = useRouter()
 
   useEffect(() => {
     fetch('/api/order/userorders', { method: 'POST' })
-      .then((r) => r.json())
-      .then((d) => { if (d.success) setOrders(d.orders as Order[]) })
+      .then((r) => {
+        if (r.status === 401) { router.push('/account?redirect=/orders'); return null }
+        return r.json()
+      })
+      .then((d) => { if (d?.success) setOrders(d.orders as Order[]) })
       .finally(() => setLoading(false))
-  }, [])
+  }, [router])
 
   if (loading) {
     return <div className="max-w-4xl mx-auto px-4 py-20 text-center text-sm text-text-muted">Loading orders…</div>

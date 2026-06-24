@@ -2,6 +2,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { toast } from 'react-toastify'
 import type { Product } from '@/types'
 
@@ -9,10 +10,12 @@ export default function AdminProductsPage() {
   const [products, setProducts] = useState<Product[]>([])
   const [search, setSearch] = useState('')
   const [loading, setLoading] = useState(true)
+  const router = useRouter()
 
   const fetchProducts = async () => {
     try {
       const res = await fetch('/api/product/list')
+      if (res.status === 401) { router.push('/admin/login'); return }
       const data = await res.json()
       if (data.success) setProducts(data.products as Product[])
     } finally {
@@ -20,7 +23,7 @@ export default function AdminProductsPage() {
     }
   }
 
-  useEffect(() => { fetchProducts() }, [])
+  useEffect(() => { fetchProducts() }, [router])
 
   const filtered = useMemo(() => {
     if (!search.trim()) return products
@@ -40,6 +43,7 @@ export default function AdminProductsPage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id }),
     })
+    if (res.status === 401) { router.push('/admin/login'); return }
     const data = await res.json()
     if (data.success) {
       toast.success('Product deleted')
