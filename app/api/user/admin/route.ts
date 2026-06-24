@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { signToken, setTokenCookie } from '@/lib/auth'
+import { signToken, setAdminTokenCookie } from '@/lib/auth'
 
 export async function POST(req: NextRequest) {
   try {
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
     const token = await signToken({ id: 'admin', isAdmin: true })
     const response = NextResponse.json({ success: true, message: 'Admin logged in' })
-    setTokenCookie(response, token)
+    setAdminTokenCookie(response, token)
     return response
   } catch {
     return NextResponse.json({ success: false, message: 'Server error' }, { status: 500 })

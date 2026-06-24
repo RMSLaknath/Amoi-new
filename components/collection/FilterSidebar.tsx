@@ -18,7 +18,7 @@ export default function FilterSidebar({
   onCategory, onSubcategory, onSize,
 }: Props) {
   return (
-    <aside className="w-56 shrink-0 space-y-8">
+    <aside className="w-full md:w-56 shrink-0 space-y-8">
       {/* Category */}
       <div>
         <h3 className="text-xs tracking-[0.2em] uppercase text-text-secondary mb-4">Category</h3>

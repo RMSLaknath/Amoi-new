@@ -108,18 +108,23 @@ function StatusTimeline({ current }: { current: string }) {
 export default function OrdersPage() {
   const [orders, setOrders] = useState<Order[]>([])
   const [loading, setLoading] = useState(true)
+  const [refreshing, setRefreshing] = useState(false)
   const { formatPrice } = useCurrency()
   const router = useRouter()
 
-  useEffect(() => {
+  const fetchOrders = (isRefresh = false) => {
+    if (isRefresh) setRefreshing(true)
+    else setLoading(true)
     fetch('/api/order/userorders', { method: 'POST' })
       .then((r) => {
         if (r.status === 401) { router.push('/account?redirect=/orders'); return null }
         return r.json()
       })
       .then((d) => { if (d?.success) setOrders(d.orders as Order[]) })
-      .finally(() => setLoading(false))
-  }, [router])
+      .finally(() => { setLoading(false); setRefreshing(false) })
+  }
+
+  useEffect(() => { fetchOrders() }, [router])
 
   if (loading) {
     return <div className="max-w-4xl mx-auto px-4 py-20 text-center text-sm text-text-muted">Loading orders…</div>
@@ -127,7 +132,23 @@ export default function OrdersPage() {
 
   return (
     <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-      <h1 className="font-playfair italic text-3xl mb-10">My Orders</h1>
+      <div className="flex items-center justify-between mb-10">
+        <h1 className="font-playfair italic text-3xl">My Orders</h1>
+        <button
+          onClick={() => fetchOrders(true)}
+          disabled={refreshing}
+          className="flex items-center gap-2 text-xs tracking-widest uppercase text-text-muted hover:text-text-primary transition-colors disabled:opacity-40"
+        >
+          <svg
+            width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" viewBox="0 0 24 24"
+            className={refreshing ? 'animate-spin' : ''}
+          >
+            <path d="M23 4v6h-6" /><path d="M1 20v-6h6" />
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+          </svg>
+          {refreshing ? 'Refreshing…' : 'Refresh'}
+        </button>
+      </div>
 
       {orders.length === 0 ? (
         <p className="text-sm text-text-muted">You haven&apos;t placed any orders yet.</p>

@@ -6,7 +6,7 @@ import type { Order } from '@/types'
 export async function POST(req: NextRequest) {
   try {
     const auth = await getAuthUser(req)
-    if (!auth) {
+    if (!auth || auth.isAdmin) {
       return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 })
     }
 

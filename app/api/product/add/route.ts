@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { db } from '@/lib/firebase'
-import { getAuthUser } from '@/lib/auth'
+import { getAdminAuthUser } from '@/lib/auth'
 import { uploadImage } from '@/lib/cloudinary'
 
 export async function POST(req: NextRequest) {
   try {
-    const user = await getAuthUser(req)
-    if (!user?.isAdmin) {
+    const user = await getAdminAuthUser(req)
+    if (!user) {
       return NextResponse.json({ success: false, message: 'Unauthorized' }, { status: 401 })
     }
 

@@ -34,16 +34,38 @@ export async function getAuthUser(req: NextRequest): Promise<JwtPayload | null> 
   }
 }
 
+export async function getAdminAuthUser(req: NextRequest): Promise<JwtPayload | null> {
+  const token = req.cookies.get('admin_token')?.value
+  if (!token) return null
+  try {
+    const payload = await verifyToken(token)
+    return payload.isAdmin ? payload : null
+  } catch {
+    return null
+  }
+}
+
 export function setTokenCookie(res: NextResponse, token: string): void {
   res.cookies.set('token', token, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 60 * 60 * 24 * 7,
+    path: '/',
+  })
+}
+
+export function setAdminTokenCookie(res: NextResponse, token: string): void {
+  res.cookies.set('admin_token', token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
     sameSite: 'strict',
-    maxAge: 60 * 60 * 24 * 7, // 7 days
+    maxAge: 60 * 60 * 24 * 7,
     path: '/',
   })
 }
 
 export function clearTokenCookie(res: NextResponse): void {
   res.cookies.set('token', '', { maxAge: 0, path: '/' })
+  res.cookies.set('admin_token', '', { maxAge: 0, path: '/' })
 }
